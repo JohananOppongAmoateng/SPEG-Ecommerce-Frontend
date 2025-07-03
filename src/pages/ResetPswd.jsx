@@ -1,0 +1,281 @@
+import { useState, useEffect } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import axiosInstance from "../utils/AxiosInstance";
+import toast from "react-hot-toast";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import hero from "../assets/img/hero/Pineapple 2.jpg";
+
+const ResetPasswordPage = () => {
+  const navigate = useNavigate();
+  const { token } = useParams();
+  const [searchParams] = useSearchParams();
+  const email = searchParams.get("token");
+  
+  const [formData, setFormData] = useState({
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [tokenValid, setTokenValid] = useState(null);
+  const [tokenChecking, setTokenChecking] = useState(true);
+
+  useEffect(() => {
+    const verifyToken = async () => {
+      try {
+        await axiosInstance.get(`/api/users/verify-reset-token/${token}`);
+        setTokenValid(true);
+      } catch (error) {
+        setTokenValid(false);
+        setError("This password reset link is invalid or has expired.");
+      } finally {
+        setTokenChecking(false);
+      }
+    };
+
+    if (token && email) {
+      verifyToken();
+    } else {
+      setTokenValid(false);
+      setTokenChecking(false);
+      setError("Invalid password reset link. Please request a new one.");
+    }
+  }, [token, email]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const validateInputs = () => {
+    if (!formData.password || !formData.confirmPassword) {
+      return "Both fields are required.";
+    }
+    
+    if (formData.password.length < 8) {
+      return "Password must be at least 8 characters long.";
+    }
+    
+    if (formData.password !== formData.confirmPassword) {
+      return "Passwords do not match.";
+    }
+    
+    return null;
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError("");
+
+    const validationError = validateInputs();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    setLoading(true);
+    
+    try {
+      await axiosInstance.post("/api/users/resetpwd", {
+        token,
+        password: formData.password,
+      });
+      
+      toast.success("Password reset successful!");
+      navigate("/login");
+    } catch (error) {
+      setError(
+        error.response?.data?.message || "An error occurred. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const renderContent = () => {
+    if (tokenChecking) {
+      return (
+        <div className="flex flex-col items-center justify-center py-8">
+          <svg
+            className="animate-spin h-8 w-8 text-green-600 mb-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            ></circle>
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+          <p className="text-gray-600">Verifying your reset link...</p>
+        </div>
+      );
+    }
+
+    if (!tokenValid) {
+      return (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mt-2">
+          <h3 className="text-lg font-medium text-red-800 mb-2">Invalid Reset Link</h3>
+          <p className="text-red-700 text-sm mb-4">
+            {error || "This password reset link is invalid or has expired."}
+          </p>
+          <button
+            onClick={() => navigate("/forgotten-pwd")}
+            className="px-4 py-2 bg-green-600 text-white rounded-lg text-sm hover:bg-green-700 w-full"
+          >
+            Request New Reset Link
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="New Password"
+            value={formData.password}
+            onChange={handleChange}
+            className="w-full bg-gray-50 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm sm:text-base pr-10"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+          >
+            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          </button>
+        </div>
+
+        <div className="relative">
+          <input
+            type={showConfirmPassword ? "text" : "password"}
+            name="confirmPassword"
+            placeholder="Confirm New Password"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            className="w-full bg-gray-50 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm sm:text-base pr-10"
+          />
+          <button
+            type="button"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+          >
+            {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          </button>
+        </div>
+
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-3 py-2 rounded-lg text-xs sm:text-sm">
+            {error}
+          </div>
+        )}
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-green-600 hover:bg-green-700 text-white py-2.5 sm:py-3 rounded-lg transition-colors font-medium flex items-center justify-center text-sm sm:text-base mt-2"
+        >
+          {loading ? (
+            <span className="flex items-center">
+              <svg
+                className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              Processing...
+            </span>
+          ) : (
+            "Reset Password"
+          )}
+        </button>
+      </form>
+    );
+  };
+
+  return (
+    <div className="flex flex-col min-h-screen bg-white md:flex-row">
+      {/* Hero image overlay for mobile */}
+      <div className="relative h-32 md:hidden overflow-hidden bg-green-700">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-60"
+          style={{ backgroundImage: `url(${hero})` }}
+        />
+        <div className="absolute inset-0 flex items-center justify-center flex-col">
+          <h2 className="text-3xl font-bold text-white">SPEG</h2>
+          <p className="text-white text-sm">Sustainable Pineapple Exporters Ghana</p>
+        </div>
+      </div>
+
+      {/* Image side - hidden on mobile */}
+      <div className="hidden md:flex md:w-1/2 bg-yellow-50 relative overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${hero})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-green-500/30 blur-3xl" />
+        <div className="absolute bottom-0 left-0 p-8 text-white">
+          <h2 className="text-4xl font-bold drop-shadow-lg text-white">SPEG</h2>
+          <p className="text-xl mt-2 max-w-md drop-shadow-md text-white">
+            Sustainable Pineapple Exporters Ghana
+          </p>
+        </div>
+      </div>
+
+      {/* Form side */}
+      <div className="w-full md:w-1/2 flex items-center justify-center p-4 sm:p-6 bg-white">
+        <div className="w-full max-w-md">          
+          <h2 className="text-2xl sm:text-3xl font-bold mb-2 text-green-700">
+            Reset Password
+          </h2>
+          <p className="text-gray-500 mb-6 sm:mb-8 text-sm sm:text-base">
+            Create a new password for your account
+          </p>
+
+          {renderContent()}
+
+          <div className="mt-6 text-center text-gray-500 text-xs sm:text-sm">
+            Remember your password?{" "}
+            <button
+              onClick={() => navigate("/login")}
+              className="text-green-600 hover:text-green-700 font-medium"
+            >
+              Sign in
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ResetPasswordPage;
