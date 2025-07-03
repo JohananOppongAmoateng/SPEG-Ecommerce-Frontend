@@ -59,7 +59,7 @@ function CartDetails() {
                 <div className="container text-center">
                     <h2>Your Cart is Empty</h2>
                     <p>
-                        Looks like you haven't added any products to your cart
+                        Looks like you haven&apos;t added any products to your cart
                         yet.
                     </p>
                     <Link to="/shop" className="ot-btn">
@@ -121,18 +121,7 @@ function CartDetails() {
                                     </td>
                                     <td data-title="Quantity">
                                         <div className="quantity">
-                                            <button
-                                                type="button"
-                                                className="quantity-minus qty-btn"
-                                                onClick={() =>
-                                                    handleQuantityChange(
-                                                        item.id,
-                                                        (item.quantity || 0) - 1
-                                                    )
-                                                }
-                                            >
-                                                <i className="far fa-minus"></i>
-                                            </button>
+                                
                                             <input
                                                 type="number"
                                                 className="qty-input"
@@ -156,18 +145,7 @@ function CartDetails() {
                                                     )
                                                 }
                                             />
-                                            <button
-                                                type="button"
-                                                className="quantity-plus qty-btn"
-                                                onClick={() =>
-                                                    handleQuantityChange(
-                                                        item.id,
-                                                        (item.quantity || 0) + 1
-                                                    )
-                                                }
-                                            >
-                                                <i className="far fa-plus"></i>
-                                            </button>
+                                            
                                         </div>
                                     </td>
                                     <td data-title="Total">
