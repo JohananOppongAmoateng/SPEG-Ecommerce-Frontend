@@ -125,11 +125,11 @@ return (
                     <tbody>
                         {orders.map((order) => (
                             <tr
-                                key={order?._id}
+                                key={order?.id}
                                 className="border-b border-green-200 hover:bg-yellow-50 transition-colors"
                             >
                                 <td className="p-3 text-green-800 font-semibold">
-                                    {order?._id}
+                                    {order?.id}
                                 </td>
                                 <td className="p-3 text-green-800">
                                     {order.farmerId.firstName} {order.farmerId.lastName}
@@ -162,7 +162,7 @@ return (
                                 <td className="p-3 text-green-800">{order.awaitingPickup}</td>
                                 <td className="p-3">
                                     <button
-                                        onClick={() => handleViewDetails(order._id)}
+                                        onClick={() => handleViewDetails(order.id)}
                                         className="
                                             bg-yellow-500 text-green-800 
                                             hover:bg-yellow-600 

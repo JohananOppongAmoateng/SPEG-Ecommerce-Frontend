@@ -22,7 +22,7 @@ function ToBuy() {
     dispatch({
         type: "ADD_TO_CART",
         payload: {
-            id: product._id,
+            id: product.id,
             name: product.productName,
             price: product.sellingPrice,
             imageUrl: product.imageUrl || prodImage,
@@ -81,7 +81,7 @@ function ToBuy() {
           // Product List
           <div className="row gy-30">
             {filteredProducts.map((product) => (
-              <div className="col-xl-3 col-lg-4 col-sm-6" key={product._id}>
+              <div className="col-xl-3 col-lg-4 col-sm-6" key={product.id}>
                 <div className="ot-product product-grid">
                   <div className="product-img">
                     {/* Assuming there is no image URL in the data; you may add a default image or omit this if not needed */}

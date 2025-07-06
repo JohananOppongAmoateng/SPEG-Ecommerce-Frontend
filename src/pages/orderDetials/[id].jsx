@@ -100,7 +100,7 @@ function OrderDetails() {
                     <div>
                         <p className="text-lg font-bold mb-3 text-green-800 flex items-center">
                             <ListOrdered className="mr-2 text-yellow-500" />
-                            Order ID: {order._id}
+                            Order ID: {order.id}
                         </p>
                         {order.invoiceGenerated && (
                             <a
