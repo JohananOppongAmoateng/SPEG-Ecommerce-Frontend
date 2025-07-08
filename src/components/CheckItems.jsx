@@ -126,7 +126,7 @@ function CheckItems({ setIsModalOpen, isModalOpen }) {
                 className="mt-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 shadow-md hover:shadow-lg"
                 disabled={isLoading || cartItems.length === 0}
             >
-                {isLoading ? "Processing..." : "Checkout"}
+                {isLoading ? "Processing..." : "Submit"}
             </button>
         </div>
     );

@@ -26,8 +26,8 @@ function Topic() {
                                 </span>
                                 <h2 className="sec-title">SPEG</h2>
                                 <p className="sec-desc">
-                                    Sea-freight Pineapple Exporters of Ghana
-                                    (SPEG) was formed in 1994 as a spin-off from
+                                    SPEG Pineapple Producers and Exporters of Ghana(SPEG) 
+                                    was formed in 1994 as a spin-off from
                                     the Horticultural Association of Ghana. SPEG
                                     is a professional organized body with
                                     specialization in the export of high quality

@@ -38,7 +38,7 @@ function ContactIcon() {
                                         spegpine@gmail.com
                                     </a>
                                     <a href="mailto:speg@spegpine.com">
-                                        speg@spegpine.com
+                                        admin@spegpine.com
                                     </a>
                                     <a href="mailto:spegpine@yahoo.co.uk">
                                         spegpine@yahoo.co.uk
