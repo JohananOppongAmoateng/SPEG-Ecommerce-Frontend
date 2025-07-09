@@ -132,7 +132,7 @@ return (
                                     {order?.id}
                                 </td>
                                 <td className="p-3 text-green-800">
-                                    {order.farmerId.firstName} {order.farmerId.lastName}
+                                    {order.farmer.firstName} {order.farmer.lastName}
                                 </td>
                                 <td className="p-3 text-green-800">
                                     {new Date(order.createdAt).toLocaleDateString()}
