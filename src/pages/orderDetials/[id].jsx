@@ -77,8 +77,8 @@ function OrderDetails() {
                         <div className="flex items-center mb-3">
                             <UserCircle className="mr-2 text-yellow-500" />
                             <p className="font-semibold text-green-800 m-0">
-                                Farmer: {order.farmerId.firstName}{" "}
-                                {order.farmerId.lastName}
+                                Farmer: {order.farmer.firstName}{" "}
+                                {order.farmer.lastName}
                             </p>
                         </div>
 
@@ -139,7 +139,7 @@ function OrderDetails() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {order.products.map((product) => (
+                                {order.orderProducts.map((product) => (
                                     <tr
                                         key={product.productId}
                                         className="border-b border-green-200 hover:bg-yellow-50 transition-colors"
