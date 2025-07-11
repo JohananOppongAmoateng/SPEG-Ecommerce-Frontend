@@ -143,7 +143,7 @@ const AuthPage = () => {
         <div className="absolute bottom-0 left-0 p-8 text-white">
           <h2 className="text-4xl font-bold drop-shadow-lg text-white">SPEG</h2>
           <p className="text-xl mt-2 max-w-md drop-shadow-md text-white">
-            Sustainable Pineapple Exporters Ghana
+            SPEG Pineapple Producers and Exporters of Ghana
           </p>
         </div>
       </div>
