@@ -35,7 +35,7 @@ function Hero() {
                                     data-ani-delay="0.7s"
                                 >
                                     <a
-                                        href="/about"
+                                        href="/about_us"
                                         className="ot-btn style3"
                                     >
                                         Learn More
