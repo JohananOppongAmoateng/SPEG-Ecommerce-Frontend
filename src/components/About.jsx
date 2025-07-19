@@ -28,8 +28,8 @@ function About() {
                                 </span>
                                 <h2 className="sec-title">SPEG</h2>
                                 <p className="sec-desc">
-                                    SPEG stands for SEA-FREIGHT PINEAPPLE
-                                    EXPORTERS OF GHANA. A professional organized
+                                    SPEG Pineapple Producers and Exporters of Ghana(SPEG) 
+                                    is a professional organized
                                     body with specialization in the export of
                                     high-quality pineapples produced with good
                                     agricultural practice and under an excellent
@@ -63,7 +63,7 @@ function About() {
                                 </div>
                             </div>
                             <div className="btn-group">
-                                <a href="about.html" className="ot-btn">
+                                <a href="/about_us" className="ot-btn">
                                     Learn more
                                     <i className="fas fa-chevrons-right ms-2"></i>
                                 </a>
