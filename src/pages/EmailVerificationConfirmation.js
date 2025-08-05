@@ -2,6 +2,7 @@ import { Mail } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom"; // Using React Router v6's useLocation and useNavigate
 import toast from "react-hot-toast"; // Import React Hot Toast
+import axiosInstance from "../utils/AxiosInstance";
 
 const EmailVerificationConfirmation = () => {
   const [isSubmitting, setIsSubmitting] = useState(true);
