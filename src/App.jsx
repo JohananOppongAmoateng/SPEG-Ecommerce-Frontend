@@ -109,7 +109,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/forgotten-pwd" element={<ForgotPasswordPage />} />
           <Route path="/resetpwd" element={<ResetPasswordPage />} />
-          <Route path="/verify/:token" element={ <EmailVerificationConfirmation/>} />
+          <Route path="/verify" element={ <EmailVerificationConfirmation/>} />
         </Routes>
       </BrowserRouter>
     </>
