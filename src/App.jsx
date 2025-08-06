@@ -29,7 +29,9 @@ function App() {
             path="/"
             element={
               <Layout>
+                <ProtectedRoute>
                 <Homepage />
+              </ProtectedRoute>
               </Layout>
             }
           />
@@ -37,7 +39,9 @@ function App() {
             path="/about_us"
             element={
               <Layout>
+                <ProtectedRoute>
                 <AboutUs />
+                  </ProtectedRoute>
               </Layout>
             }
           />
@@ -45,7 +49,9 @@ function App() {
             path="/contact_us"
             element={
               <Layout>
+                <ProtectedRoute>
                 <ContactUs />
+                </ProtectedRoute>
               </Layout>
             }
           />
