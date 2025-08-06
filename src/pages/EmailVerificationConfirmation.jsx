@@ -1,18 +1,16 @@
 import { Mail } from "lucide-react";
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom"; // Using React Router v6's useLocation and useNavigate
+import { useNavigate } from "react-router-dom"; // Using React Router v6's useLocation and useNavigate
 import toast from "react-hot-toast"; // Import React Hot Toast
 import axiosInstance from "../utils/AxiosInstance";
+import { useParams } from "react-router-dom";
 
 const EmailVerificationConfirmation = () => {
   const [isSubmitting, setIsSubmitting] = useState(true);
   const [statusMessage, setStatusMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const { token } = useParams();
   const navigate = useNavigate(); // Using React Router v6's useNavigate for navigation
-  const location = useLocation(); // To get query params from the URL
-
-  // Get token from URL query params
-  const token = new URLSearchParams(location.search).get("token");
 
   useEffect(() => {
     const verifyEmail = async () => {
