@@ -19,8 +19,6 @@ const EmailVerificationConfirmation = () => {
   useEffect(() => {
     const verifyEmail = async () => {
       if (!token) {
-        setStatusMessage("Invalid or expired token.");
-        setIsSubmitting(false);
         return;
       }
 
