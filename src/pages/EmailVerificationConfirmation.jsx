@@ -27,7 +27,7 @@ const EmailVerificationConfirmation = () => {
         const response = await axiosInstance.post("/api/users/verifytoken", { token });
 
         // Check if the response is successful
-        setStatusMessage(res.data?.message || "Your email has been successfully verified.");
+        setStatusMessage(response.data?.message || "Your email has been successfully verified.");
         setIsSuccess(true);
         toast.success("Email successfully verified! You can now log in.");
       } catch (error) {
