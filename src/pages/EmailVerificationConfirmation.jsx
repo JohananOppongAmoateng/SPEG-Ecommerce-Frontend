@@ -29,16 +29,9 @@ const EmailVerificationConfirmation = () => {
         const response = await axiosInstance.post("/api/users/verifytoken", { token });
 
         // Check if the response is successful
-        if (response.ok) {
-          setStatusMessage("Your email has been successfully verified.");
-          setIsSuccess(true);
-          toast.success("Email successfully verified! You can now log in.");
-        } else {
-          const errorData = await response.json();
-          setStatusMessage(errorData.message || "Verification failed.");
-          setIsSuccess(false);
-          toast.error(errorData.message || "Verification failed. Please check the link.");
-        }
+        setStatusMessage(res.data?.message || "Your email has been successfully verified.");
+        setIsSuccess(true);
+        toast.success("Email successfully verified! You can now log in.");
       } catch (error) {
         setStatusMessage("An error occurred. Please try again.");
         setIsSuccess(false);
@@ -52,7 +45,7 @@ const EmailVerificationConfirmation = () => {
     if (token) {
       verifyEmail(); // Run the verification function when token is available
     }
-  }, [])
+  }, [token])
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
