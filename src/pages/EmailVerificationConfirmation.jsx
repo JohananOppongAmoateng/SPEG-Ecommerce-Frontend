@@ -9,7 +9,11 @@ const EmailVerificationConfirmation = () => {
   const [isSubmitting, setIsSubmitting] = useState(true);
   const [statusMessage, setStatusMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
-  const { token } = useParams();
+  const params = useParams();
+  console.log("useParams output:", params);
+  const { token } = params;
+  console.log("Extracted token:", token);
+
   const navigate = useNavigate(); // Using React Router v6's useNavigate for navigation
 
   useEffect(() => {
@@ -63,15 +67,7 @@ const EmailVerificationConfirmation = () => {
         {isSubmitting ? (
           <div className="text-gray-600">Verifying your email...</div>
         ) : (
-          <button
-            onClick={() => navigate("/login")} // Use navigate to redirect to login page if successful
-            className={`w-full py-3 rounded-lg ${
-              isSuccess ? "bg-emerald-500 text-white" : "bg-gray-500 text-white"
-            } hover:bg-emerald-600 transition duration-300`}
-            disabled={!isSuccess}
-          >
-            {isSuccess ? "Go to Login" : "Try Again"}
-          </button>
+          <div className="text-gray-600">{isSuccess ? "Go to Login" : "Try Again"}</div>
         )}
       </div>
     </div>
